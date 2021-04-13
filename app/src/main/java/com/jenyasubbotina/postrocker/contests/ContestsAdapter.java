@@ -33,6 +33,7 @@ public class ContestsAdapter extends RecyclerView.Adapter<ContestsAdapter.ViewHo
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.name.setText(items.get(position).getTitle());
@@ -43,7 +44,7 @@ public class ContestsAdapter extends RecyclerView.Adapter<ContestsAdapter.ViewHo
         Date time = new java.util.Date((long)items.get(position).getStartTime()*1000);
         @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("dd.MM.yyyy hh:mm");
         String strDate= formatter.format(time);
-        holder.time.setText(strDate);
+        holder.time.setText(strDate + " UTC");
     }
 
     @Override

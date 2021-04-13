@@ -9,5 +9,24 @@
         android:id="@+id/contestsFragment"
         android:name="com.jenyasubbotina.postrocker.contests.ContestsFragment"
         android:label="fragment_contests_list"
-        tools:layout="@layout/fragment_contests_list" />
+        tools:layout="@layout/fragment_contests_list" >
+        <action
+            android:id="@+id/action_contestsFragment_to_singleContestFragment"
+            app:destination="@id/singleContestFragment" />
+        <action
+            android:id="@+id/action_contestsFragment_to_singleContestActivity"
+            app:destination="@id/singleContestActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cabinetFragment"
+        android:name="com.jenyasubbotina.postrocker.cabinet.CabinetFragment"
+        android:label="fragment_cabinet"
+        tools:layout="@layout/fragment_cabinet" />
+
+    <activity
+        android:id="@+id/singleContestActivity"
+        android:name="com.jenyasubbotina.postrocker.contests.single_contest.SingleContestActivity"
+        android:label="activity_single_contest"
+        tools:layout="@layout/activity_single_contest" />
 </navigation>

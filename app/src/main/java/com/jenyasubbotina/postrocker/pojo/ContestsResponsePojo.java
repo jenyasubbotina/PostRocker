@@ -8,18 +8,18 @@ import java.util.ArrayList;
 public class ContestsResponsePojo {
     @SerializedName("count")
     @Expose
-    private String name;
+    private Long count;
 
     @SerializedName("results")
     @Expose
     private ArrayList<ContestsPojo> contests;
 
-    public String getName() {
-        return name;
+    public Long getName() {
+        return count;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(Long c) {
+        this.count = c;
     }
 
     public ArrayList<ContestsPojo> getContests() {

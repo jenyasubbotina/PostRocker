@@ -10,19 +10,26 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.PostRocker.AppBarOverlay"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:theme="@style/Theme.PostRocker.AppBarOverlay">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/new_rocker"
-            android:gravity="center"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/new_rocker"
+                android:layout_marginStart="@dimen/small_margin"
+                android:layout_centerVertical="true"
+                android:minHeight="?actionBarSize"
+                android:padding="@dimen/appbar_padding"
+                android:text="@string/app_name"
+                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+        </RelativeLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -31,9 +38,9 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:defaultNavHost="true"
-        android:layout_below="@id/app_bar"
         android:layout_above="@id/nav_view"
+        android:layout_below="@id/app_bar"
+        app:defaultNavHost="true"
         app:navGraph="@navigation/mobile_navigation" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -41,26 +48,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         android:background="?android:attr/windowBackground"
         android:theme="@style/Widget.AppCompat.Light.ActionBar.Solid"
-        app:itemBackground="@color/white"
-        app:itemIconTint="@color/black"
-        app:itemTextColor="@color/black"
+        app:itemBackground="@drawable/bottom_nav_item"
+        app:itemIconTint="@drawable/bottom_nav_item_tint"
+        app:itemTextColor="@drawable/bottom_nav_item_tint"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:menu="@menu/menu_bottom_nav" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/nav_view"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintRight_toRightOf="parent"/>
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fab"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_above="@id/nav_view"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_margin="@dimen/fab_margin"-->
+    <!--        app:srcCompat="@android:drawable/ic_dialog_email"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/nav_view"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"/>-->
 
 </RelativeLayout>

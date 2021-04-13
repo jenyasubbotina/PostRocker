@@ -1,16 +1,19 @@
 package com.jenyasubbotina.postrocker.contests;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jenyasubbotina.postrocker.MainActivity;
 import com.jenyasubbotina.postrocker.R;
+import com.jenyasubbotina.postrocker.RecyclerItemClickListener;
 import com.jenyasubbotina.postrocker.network.NetworkService;
 import com.jenyasubbotina.postrocker.pojo.ContestsPojo;
 import com.jenyasubbotina.postrocker.pojo.ContestsResponsePojo;
@@ -26,13 +29,31 @@ import retrofit2.Response;
 public class ContestsFragment extends Fragment {
     ArrayList<ContestsModel> contests = new ArrayList<>();
     RecyclerView recyclerView;
+    NavController navController;
+    RecyclerItemClickListener listener;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_contests_list, container, false);
         if (view instanceof RecyclerView) {
-            Context context = view.getContext();
             recyclerView = (RecyclerView) view;
+            recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+            listener = new RecyclerItemClickListener(requireContext(),
+                    recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    navController = Navigation.findNavController(view);
+                    Bundle bundle = new Bundle();
+                    bundle.putLong(MainActivity.CONTEST_ID, contests.get(position).getId());
+                    navController.navigate(R.id.singleContestActivity, bundle);
+                }
+
+                @Override
+                public void onLongItemClick(View view, int position) {
+
+                }
+            });
             getContests();
         }
         return view;
@@ -48,11 +69,12 @@ public class ContestsFragment extends Fragment {
                                            @NotNull Response<ContestsResponsePojo> response) {
                         assert response.body() != null;
                         ArrayList<ContestsPojo> c = response.body().getContests();
+                        contests.clear();
                         for (ContestsPojo cp : c) {
                             contests.add(new ContestsModel(cp.getId(), cp.getTitle(),
                                     cp.getDescription(), cp.getStartTime(), cp.getDuration()));
                         }
-                        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+                        recyclerView.addOnItemTouchListener(listener);
                         recyclerView.setAdapter(new ContestsAdapter(contests));
                     }
 

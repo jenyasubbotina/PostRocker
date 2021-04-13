@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_user"
         android:title="@string/cabinet" />
 
+    <item
+        android:id="@+id/rating_nav"
+        android:icon="@drawable/ic_rating"
+        android:title="@string/rating" />
+
 </menu>

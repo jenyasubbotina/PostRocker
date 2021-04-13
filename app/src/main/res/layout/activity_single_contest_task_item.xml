@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/task_single"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/small_margin">
+
+    <ToggleButton
+        android:id="@+id/task_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/task_unactive"
+        android:textSize="@dimen/h3"
+        android:textColor="@color/black"
+        android:textOn=""
+        android:textOff=""/>
+
+</LinearLayout>
