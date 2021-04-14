@@ -10,9 +10,9 @@
         android:id="@+id/task_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/task_unactive"
+        android:background="@android:color/transparent"
         android:textSize="@dimen/h3"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textOn=""
         android:textOff=""/>
 

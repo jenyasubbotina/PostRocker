@@ -48,13 +48,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         holder.name.setText(items.get(position).getTitle());
         if (!buttons.contains(holder.name))
             buttons.add(holder.name);
-        if (pressed.get(position)) {
-            holder.name.setBackgroundResource(R.drawable.task_active);
-            holder.name.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-        } else {
-            holder.name.setBackgroundResource(R.drawable.task_unactive);
-            holder.name.setTextColor(ContextCompat.getColor(mContext, R.color.black));
-        }
+//        if (pressed.get(position)) {
+//            holder.name.setBackgroundResource(R.drawable.task_active);
+//            holder.name.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+//        } else {
+//            holder.name.setBackgroundResource(R.drawable.task_unactive);
+//            holder.name.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+//        }
     }
 
     @Override

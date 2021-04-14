@@ -12,4 +12,5 @@
     <color name="darkblue"> #1e326c </color>
     <color name="mediumblue"> #6aa4e5 </color>
     <color name="lightbrown"> #796e66 </color>
+    <color name="mediumblack"> #2E2D2E </color>
 </resources>

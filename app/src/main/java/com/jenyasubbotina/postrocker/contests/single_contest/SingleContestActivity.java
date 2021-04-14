@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ import com.jenyasubbotina.postrocker.network.NetworkService;
 import com.jenyasubbotina.postrocker.pojo.ContestsPojo;
 import com.jenyasubbotina.postrocker.pojo.TasksPojo;
 import com.jenyasubbotina.postrocker.pojo.TasksResponsePojo;
+import com.yarolegovich.slidingrootnav.SlidingRootNav;
+import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +29,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SingleContestActivity extends AppCompatActivity implements TaskClick {
+public class SingleContestActivity extends AppCompatActivity implements TaskClick
+{
     ArrayList<TaskModel> tasks = new ArrayList<>();
     RecyclerView rvTasks;
     TextView contestName, contestDescription;
@@ -35,13 +39,35 @@ public class SingleContestActivity extends AppCompatActivity implements TaskClic
     TasksAdapter adapter;
     TextView taskName, taskTimeLimit, taskMemoryLimit, taskDescription;
     TableLayout taskIO;
+    Button tasksMenu;
+    private SlidingRootNav slidingRootNav;
+    SlidingRootNavBuilder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_contest);
         getSupportActionBar().hide();
+
+        builder = new SlidingRootNavBuilder(SingleContestActivity.this)
+                .withMenuOpened(false)
+                .withDragDistance(200)
+                .withContentClickableWhenMenuOpened(true)
+                .withSavedState(savedInstanceState)
+                .withRootViewScale(0.7f)
+                .withMenuLayout(R.layout.contest_tasks_menu)
+                .withMenuLocked(false);
+
+        slidingRootNav = builder.inject();
+
         id = getIntent().getExtras().getLong(MainActivity.CONTEST_ID);
         init();
+        tasksMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                slidingRootNav.openMenu();
+            }
+        });
         getContestInfo(id);
         rvTasks.setLayoutManager(new LinearLayoutManager(SingleContestActivity.this));
         getTasksOfContest(id);
@@ -56,6 +82,7 @@ public class SingleContestActivity extends AppCompatActivity implements TaskClic
         taskMemoryLimit = findViewById(R.id.task_memory_limit);
         taskDescription = findViewById(R.id.task_description);
         taskIO = findViewById(R.id.task_io_example);
+        tasksMenu = findViewById(R.id.task_menu);
         lis = this;
     }
 
@@ -119,5 +146,6 @@ public class SingleContestActivity extends AppCompatActivity implements TaskClic
     public void onClick(View view, int position) {
         setupTaskInfo(tasks.get(position));
         adapter.notifyDataSetChanged();
+        slidingRootNav.closeMenu();
     }
 }

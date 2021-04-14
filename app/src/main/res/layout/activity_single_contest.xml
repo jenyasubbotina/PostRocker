@@ -13,10 +13,19 @@
         android:layout_height="match_parent"
         tools:context=".contests.single_contest.SingleContestFragment">
 
+        <Button
+            android:id="@+id/task_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@color/black"
+            android:text="@string/task"/>
+
         <TextView
             android:id="@+id/contest_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/task_menu"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="@dimen/h1"
@@ -99,16 +108,8 @@
                 </TableLayout>
 
             </RelativeLayout>
-        </androidx.cardview.widget.CardView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contest_tasks"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/task"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/medium_margin"
-            tools:listitem="@layout/activity_single_contest_task_item" />
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 

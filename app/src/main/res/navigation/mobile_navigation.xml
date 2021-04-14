@@ -11,11 +11,11 @@
         android:label="fragment_contests_list"
         tools:layout="@layout/fragment_contests_list" >
         <action
-            android:id="@+id/action_contestsFragment_to_singleContestFragment"
-            app:destination="@id/singleContestFragment" />
-        <action
             android:id="@+id/action_contestsFragment_to_singleContestActivity"
             app:destination="@id/singleContestActivity" />
+        <action
+            android:id="@+id/action_contestsFragment_to_singleContestActivity2"
+            app:destination="@id/singleContestActivity2" />
     </fragment>
 
     <fragment
@@ -29,4 +29,9 @@
         android:name="com.jenyasubbotina.postrocker.contests.single_contest.SingleContestActivity"
         android:label="activity_single_contest"
         tools:layout="@layout/activity_single_contest" />
+    <activity
+        android:id="@+id/singleContestActivity2"
+        android:name="com.jenyasubbotina.postrocker.contests.single_contest.SingleContestActivity2"
+        android:label="app_bar_main"
+        tools:layout="@layout/app_bar_main" />
 </navigation>
