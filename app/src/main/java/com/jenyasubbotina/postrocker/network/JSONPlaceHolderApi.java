@@ -7,6 +7,7 @@ import com.jenyasubbotina.postrocker.pojo.TasksResponsePojo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface JSONPlaceHolderApi
 {
@@ -22,6 +23,6 @@ public interface JSONPlaceHolderApi
     @GET("/api/tasks")
     Call<TasksResponsePojo> getAllTasks();
 
-    @GET("/api/tasks/?search={word}")
-    Call<TasksResponsePojo> getTaskByKeyword(@Path("word") String keyWord);
+    @GET("/api/tasks/?")
+    Call<TasksResponsePojo> getTaskByKeyword(@Query("search") String word);
 }

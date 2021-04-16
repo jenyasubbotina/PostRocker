@@ -9,9 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jenyasubbotina.postrocker.R;
@@ -22,6 +26,7 @@ import com.jenyasubbotina.postrocker.pojo.TasksResponsePojo;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -35,6 +40,9 @@ public class TasksFragment extends Fragment {
     NestedScrollView scrollView;
     ArrayList<TasksModel> tasks = new ArrayList<>();
     FloatingActionButton fab;
+    EditText find;
+    ProgressBar progressBar;
+    TextView notFound;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,60 +51,100 @@ public class TasksFragment extends Fragment {
         init();
         getTasks();
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getTasks();
-                refreshLayout.setRefreshing(false);
+        find.setOnKeyListener((v, keyCode, event) -> {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                    (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                getTasksByWord(find.getText().toString().trim());
+                return true;
+            }
+            return false;
+        });
+
+        refreshLayout.setOnRefreshListener(() -> {
+            getTasks();
+            refreshLayout.setRefreshing(false);
+        });
+
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (v.getChildAt(v.getChildCount() - 1) != null) {
+                if (scrollY > oldScrollY)
+                    fab.show();
+                else
+                    fab.hide();
             }
         });
 
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (v.getChildAt(v.getChildCount() - 1) != null) {
-                    if (scrollY > oldScrollY)
-                        fab.show();
-                    else
-                        fab.hide();
-                }
-            }
-        });
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                scrollView.fling(0);
-                scrollView.smoothScrollTo(0, 0);
-            }
+        fab.setOnClickListener(view -> {
+            scrollView.fling(0);
+            scrollView.smoothScrollTo(0, 0);
         });
 
         return v;
     }
 
     public void init() {
-        recyclerView = (RecyclerView) v.findViewById(R.id.list);
+        recyclerView = v.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         fab = v.findViewById(R.id.btn_to_top);
         scrollView = v.findViewById(R.id.scrollView);
         refreshLayout = v.findViewById(R.id.refresh);
+        find = v.findViewById(R.id.find_task);
+        progressBar = v.findViewById(R.id.progress);
+        notFound = v.findViewById(R.id.not_found);
+    }
+
+    public void updateRecyclerView(ArrayList<TasksModel> tasksModelArrayList) {
+        recyclerView.setAdapter(new TasksAdapter(tasksModelArrayList));
+        progressBar.setVisibility(View.INVISIBLE);
+        if (tasksModelArrayList.size() > 0) {
+            notFound.setVisibility(View.INVISIBLE);
+        } else {
+            notFound.setVisibility(View.VISIBLE);
+        }
+        recyclerView.scheduleLayoutAnimation();
     }
 
     public void getTasks() {
+        progressBar.setVisibility(View.VISIBLE);
         NetworkService.getInstance()
                 .getJSONApi()
                 .getAllTasks()
                 .enqueue(new Callback<TasksResponsePojo>() {
                     @Override
-                    public void onResponse(@NotNull Call<TasksResponsePojo> call, @NotNull Response<TasksResponsePojo> response) {
+                    public void onResponse(@NotNull Call<TasksResponsePojo> call,
+                                           @NotNull Response<TasksResponsePojo> response) {
                         ArrayList<TasksPojo> tasksPojo = response.body().getTasks();
                         tasks.clear();
                         for (TasksPojo t : tasksPojo) {
                             tasks.add(new TasksModel(t.getId(), t.getTitle(), t.getContent(),
                                     t.getContest(), t.getTl(), t.getMl(), t.getSamples()));
                         }
-                        recyclerView.setAdapter(new TasksAdapter(tasks));
-                        recyclerView.scheduleLayoutAnimation();
+                        updateRecyclerView(tasks);
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<TasksResponsePojo> call, @NotNull Throwable t) {
+
+                    }
+                });
+    }
+
+    public void getTasksByWord(String word) {
+        progressBar.setVisibility(View.VISIBLE);
+        NetworkService.getInstance()
+                .getJSONApi()
+                .getTaskByKeyword(word)
+                .enqueue(new Callback<TasksResponsePojo>() {
+                    @Override
+                    public void onResponse(@NotNull Call<TasksResponsePojo> call,
+                                           @NotNull Response<TasksResponsePojo> response) {
+                        ArrayList<TasksPojo> tasksPojo = response.body().getTasks();
+                        tasks.clear();
+                        for (TasksPojo t : tasksPojo) {
+                            tasks.add(new TasksModel(t.getId(), t.getTitle(), t.getContent(),
+                                    t.getContest(), t.getTl(), t.getMl(), t.getSamples()));
+                        }
+                        updateRecyclerView(tasks);
                     }
 
                     @Override

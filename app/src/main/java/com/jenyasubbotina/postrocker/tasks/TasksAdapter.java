@@ -26,7 +26,6 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_tasks_list_item, parent, false);
-        System.out.println("here");
         return new ViewHolder(view);
     }
 
@@ -49,8 +48,8 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            title = (TextView) view.findViewById(R.id.task_name);
-            description = (TextView) view.findViewById(R.id.task_description);
+            title = view.findViewById(R.id.task_name);
+            description = view.findViewById(R.id.task_description);
         }
     }
 }

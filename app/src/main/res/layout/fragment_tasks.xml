@@ -4,21 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/white">
 
                 <EditText
                     android:id="@+id/find_task"
@@ -29,16 +33,43 @@
                     android:importantForAutofill="no"
                     android:inputType="text" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/list"
-                    android:name="com.jenyasubbotina.postrocker.tasks.TasksFragment"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layoutAnimation="@anim/layout_animation"
-                    android:padding="@dimen/small_margin"
-                    app:layoutManager="LinearLayoutManager"
-                    tools:context=".tasks.TasksFragment"
-                    tools:listitem="@layout/fragment_tasks_list_item" />
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list"
+                        android:name="com.jenyasubbotina.postrocker.tasks.TasksFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:layoutAnimation="@anim/layout_animation"
+                        android:padding="@dimen/small_margin"
+                        app:layoutManager="LinearLayoutManager"
+                        tools:context=".tasks.TasksFragment"
+                        tools:listitem="@layout/fragment_tasks_list_item" />
+
+                    <TextView
+                        android:id="@+id/not_found"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/large_margin"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/not_found"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:visibility="invisible" />
+
+                    <ProgressBar
+                        android:id="@+id/progress"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_below="@id/not_found"
+                        android:layout_margin="@dimen/large_margin"
+                        android:layout_centerInParent="true"
+                        android:progressBackgroundTint="@color/medium_blue"/>
+
+                </RelativeLayout>
 
             </LinearLayout>
 

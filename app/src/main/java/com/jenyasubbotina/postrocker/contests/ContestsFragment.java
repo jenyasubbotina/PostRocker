@@ -42,7 +42,9 @@ public class ContestsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_contests_list, container, false);
+        v = inflater.inflate(R.layout.fragment_contests_list, container, false);
+        init();
+        getContests();
         listener = new RecyclerItemClickListener(requireContext(),
                 recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -58,8 +60,6 @@ public class ContestsFragment extends Fragment {
 
             }
         });
-        init();
-        getContests();
         return v;
     }
 
@@ -91,38 +91,29 @@ public class ContestsFragment extends Fragment {
     }
 
     public void init() {
-        recyclerView = (RecyclerView) v.findViewById(R.id.list);
+        recyclerView = v.findViewById(R.id.contests);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         fab = v.findViewById(R.id.btn_to_top);
         scrollView = v.findViewById(R.id.scrollView);
         refreshLayout = v.findViewById(R.id.refresh);
 
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getContests();
-                refreshLayout.setRefreshing(false);
+        refreshLayout.setOnRefreshListener(() -> {
+            getContests();
+            refreshLayout.setRefreshing(false);
+        });
+
+        scrollView.setOnScrollChangeListener((NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if (v.getChildAt(v.getChildCount() - 1) != null) {
+                if (scrollY > oldScrollY)
+                    fab.show();
+                else
+                    fab.hide();
             }
         });
 
-        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (v.getChildAt(v.getChildCount() - 1) != null) {
-                    if (scrollY > oldScrollY)
-                        fab.show();
-                    else
-                        fab.hide();
-                }
-            }
-        });
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                scrollView.fling(0);
-                scrollView.smoothScrollTo(0, 0);
-            }
+        fab.setOnClickListener(view -> {
+            scrollView.fling(0);
+            scrollView.smoothScrollTo(0, 0);
         });
     }
 }
