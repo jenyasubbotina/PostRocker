@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/contestsFragment">
+    app:startDestination="@id/navigationFragment">
 
     <fragment
         android:id="@+id/contestsFragment"
@@ -13,9 +13,6 @@
         <action
             android:id="@+id/action_contestsFragment_to_singleContestActivity"
             app:destination="@id/singleContestActivity" />
-        <action
-            android:id="@+id/action_contestsFragment_to_singleContestActivity2"
-            app:destination="@id/singleContestActivity2" />
     </fragment>
 
     <fragment
@@ -29,9 +26,24 @@
         android:name="com.jenyasubbotina.postrocker.contests.single_contest.SingleContestActivity"
         android:label="activity_single_contest"
         tools:layout="@layout/activity_single_contest" />
-    <activity
-        android:id="@+id/singleContestActivity2"
-        android:name="com.jenyasubbotina.postrocker.contests.single_contest.SingleContestActivity2"
-        android:label="app_bar_main"
-        tools:layout="@layout/app_bar_main" />
+    <fragment
+        android:id="@+id/navigationFragment"
+        android:name="com.jenyasubbotina.postrocker.navigationmenu.NavigationFragment"
+        android:label="fragment_navigation"
+        tools:layout="@layout/fragment_navigation">
+        <action
+            android:id="@+id/action_navigationFragment_to_contestsFragment"
+            app:destination="@id/contestsFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_cabinetFragment"
+            app:destination="@id/cabinetFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.jenyasubbotina.postrocker.tasks.TasksFragment"
+        android:label="fragment_tasks_list_item"
+        tools:layout="@layout/fragment_tasks" />
 </navigation>

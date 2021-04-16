@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:background="@color/white"
         android:theme="@style/Theme.PostRocker.AppBarOverlay">
 
         <RelativeLayout
@@ -24,10 +25,10 @@
                 android:fontFamily="@font/new_rocker"
                 android:layout_marginStart="@dimen/small_margin"
                 android:layout_centerVertical="true"
-                android:minHeight="?actionBarSize"
                 android:padding="@dimen/appbar_padding"
+                android:textColor="@color/black"
                 android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+                android:textSize="25sp"/>
 
         </RelativeLayout>
 
@@ -37,16 +38,19 @@
         android:id="@+id/my_nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_above="@id/nav_view"
         android:layout_below="@id/app_bar"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/mobile_navigation" />
+        app:navGraph="@navigation/mobile_navigation"
+        tools:ignore="FragmentTagUsage" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:background="?android:attr/windowBackground"
         android:theme="@style/Widget.AppCompat.Light.ActionBar.Solid"

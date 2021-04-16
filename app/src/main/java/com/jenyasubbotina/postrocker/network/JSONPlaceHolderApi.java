@@ -18,4 +18,10 @@ public interface JSONPlaceHolderApi
 
     @GET("/api/contests/{id}")
     Call<ContestsPojo> getContestById(@Path("id") long id);
+
+    @GET("/api/tasks")
+    Call<TasksResponsePojo> getAllTasks();
+
+    @GET("/api/tasks/?search={word}")
+    Call<TasksResponsePojo> getTaskByKeyword(@Path("word") String keyWord);
 }

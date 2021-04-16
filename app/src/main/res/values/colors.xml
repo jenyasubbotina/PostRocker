@@ -8,9 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue"> #006CFF </color>
-    <color name="lightblue"> #eff2f6 </color>
-    <color name="darkblue"> #1e326c </color>
-    <color name="mediumblue"> #6aa4e5 </color>
-    <color name="lightbrown"> #796e66 </color>
-    <color name="mediumblack"> #2E2D2E </color>
+
+    <color name="light"> #E8E9F3 </color>
+    <color name="medium_light"> #BFC0CD </color>
+    <color name="dark_blue"> #1e326c </color>
+    <color name="medium_blue"> #6aa4e5 </color>
+    <color name="light_brown"> #9A7E70 </color>
+    <color name="dark_brown"> #43393A </color>
+    <color name="medium_gray"> #5C5B5D </color>
+    <color name="medium_black"> #080808 </color>
 </resources>

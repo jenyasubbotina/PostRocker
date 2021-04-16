@@ -4,10 +4,12 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="cabinet"> Кабинет </string>
     <string name="contests"> Контесты </string>
+    <string name="find"> Поиск </string>
+    <string name="programming"> Программирование </string>
     <string name="rating"> Рейтинг </string>
+    <string name="faq"> F.A.Q </string>
     <string name="time_limit"> Ограничение по времени: %1$d c. </string>
     <string name="memory_limit"> Ограничение по памяти: %1$d МБ. </string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="task"> Задачи </string>
 </resources>

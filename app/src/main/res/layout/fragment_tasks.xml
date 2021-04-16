@@ -15,16 +15,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list"
-                android:name="com.jenyasubbotina.decembrist.ContestsFragment"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layoutAnimation="@anim/layout_animation"
-                app:layoutManager="LinearLayoutManager"
-                tools:context=".contests.ContestsFragment"
-                tools:listitem="@layout/fragment_contests_list_item" />
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/find_task"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/small_margin"
+                    android:hint="@string/find"
+                    android:importantForAutofill="no"
+                    android:inputType="text" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/list"
+                    android:name="com.jenyasubbotina.postrocker.tasks.TasksFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutAnimation="@anim/layout_animation"
+                    android:padding="@dimen/small_margin"
+                    app:layoutManager="LinearLayoutManager"
+                    tools:context=".tasks.TasksFragment"
+                    tools:listitem="@layout/fragment_tasks_list_item" />
+
+            </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
 

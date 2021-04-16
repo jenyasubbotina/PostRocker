@@ -2,8 +2,11 @@ package com.jenyasubbotina.postrocker;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
 import androidx.navigation.NavInflater;
@@ -36,14 +39,21 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, Navigation.findNavController(this, R.id.my_nav_host_fragment));
         navigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.contest_nav:
-                    navController.navigate(R.id.contestsFragment);
+                case R.id.programming_nav:
+                    navController.navigate(R.id.navigationFragment);
                     break;
-                case R.id.cabinet_nav:
+                case R.id.personal_nav:
                     navController.navigate(R.id.cabinetFragment);
                     break;
             }
             return true;
         });
+    }
+
+    public void init() {
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.medium_black));
     }
 }
