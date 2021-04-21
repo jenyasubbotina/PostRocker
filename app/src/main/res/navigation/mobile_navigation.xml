@@ -45,5 +45,19 @@
         android:id="@+id/tasksFragment"
         android:name="com.jenyasubbotina.postrocker.tasks.TasksFragment"
         android:label="fragment_tasks_list_item"
-        tools:layout="@layout/fragment_tasks" />
+        tools:layout="@layout/fragment_tasks" >
+        <action
+            android:id="@+id/action_tasksFragment_to_singleTask"
+            app:destination="@id/singleTask" />
+    </fragment>
+    <activity
+        android:id="@+id/singleTask"
+        android:name="com.jenyasubbotina.postrocker.tasks.single_task.SingleTask"
+        android:label="activity_single_task"
+        tools:layout="@layout/activity_single_task">
+        <argument
+            android:name="TASK_ID"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </activity>
 </navigation>

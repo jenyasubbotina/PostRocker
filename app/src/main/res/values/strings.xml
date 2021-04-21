@@ -13,4 +13,6 @@
     <string name="memory_limit"> Ограничение по памяти: %1$d МБ. </string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="task"> Задачи </string>
+    <string name="input"> Ввод </string>
+    <string name="output"> Вывод </string>
 </resources>

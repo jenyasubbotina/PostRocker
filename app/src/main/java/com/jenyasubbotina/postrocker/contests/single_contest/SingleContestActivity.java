@@ -47,7 +47,7 @@ public class SingleContestActivity extends AppCompatActivity implements TaskClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_contest);
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         builder = new SlidingRootNavBuilder(SingleContestActivity.this)
                 .withMenuOpened(false)
@@ -62,12 +62,7 @@ public class SingleContestActivity extends AppCompatActivity implements TaskClic
 
         id = getIntent().getExtras().getLong(MainActivity.CONTEST_ID);
         init();
-        tasksMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                slidingRootNav.openMenu();
-            }
-        });
+        tasksMenu.setOnClickListener(v -> slidingRootNav.openMenu());
         getContestInfo(id);
         rvTasks.setLayoutManager(new LinearLayoutManager(SingleContestActivity.this));
         getTasksOfContest(id);

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdapter.ViewHolder> {
 
-    private final Context context;
+    public final Context context;
     private final NavController navController;
     int[] names = {R.string.task, R.string.contests, R.string.rating, R.string.faq};
     int[] images = {R.drawable.images, R.drawable.images1, R.drawable.images2,
@@ -47,23 +47,19 @@ public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdap
         holder.title.setText(names[position]);
         holder.image.setImageResource(images[position]);
         holder.card.setId(names[position]);
-        holder.card.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceType")
-            @Override
-            public void onClick(View v) {
-                int navigateTo;
-                switch (v.getId()) {
-                    case CONTEST_STRING:
-                        navigateTo = R.id.contestsFragment;
-                        break;
-                    case TASKS_STRING:
-                        navigateTo = R.id.tasksFragment;
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + v.getId());
-                }
-                navController.navigate(navigateTo);
+        holder.card.setOnClickListener(v -> {
+            int navigateTo;
+            switch (v.getId()) {
+                case CONTEST_STRING:
+                    navigateTo = R.id.contestsFragment;
+                    break;
+                case TASKS_STRING:
+                    navigateTo = R.id.tasksFragment;
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + v.getId());
             }
+            navController.navigate(navigateTo);
         });
     }
 

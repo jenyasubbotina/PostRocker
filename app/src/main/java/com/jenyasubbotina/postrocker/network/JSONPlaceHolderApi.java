@@ -2,6 +2,7 @@ package com.jenyasubbotina.postrocker.network;
 
 import com.jenyasubbotina.postrocker.pojo.ContestsPojo;
 import com.jenyasubbotina.postrocker.pojo.ContestsResponsePojo;
+import com.jenyasubbotina.postrocker.pojo.TasksPojo;
 import com.jenyasubbotina.postrocker.pojo.TasksResponsePojo;
 
 import retrofit2.Call;
@@ -25,4 +26,8 @@ public interface JSONPlaceHolderApi
 
     @GET("/api/tasks/?")
     Call<TasksResponsePojo> getTaskByKeyword(@Query("search") String word);
+
+    @GET("/api/tasks/{id}")
+    Call<TasksPojo> getSingleTask(@Path("id") long idd);
+
 }

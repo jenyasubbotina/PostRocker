@@ -1,14 +1,6 @@
 package com.jenyasubbotina.postrocker.tasks;
 
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.core.widget.NestedScrollView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +8,14 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.core.widget.NestedScrollView;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jenyasubbotina.postrocker.R;
@@ -26,8 +26,8 @@ import com.jenyasubbotina.postrocker.pojo.TasksResponsePojo;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,7 +38,7 @@ public class TasksFragment extends Fragment {
     RecyclerView recyclerView;
     SwipeRefreshLayout refreshLayout;
     NestedScrollView scrollView;
-    ArrayList<TasksModel> tasks = new ArrayList<>();
+    ArrayList<TaskModel> tasks = new ArrayList<>();
     FloatingActionButton fab;
     EditText find;
     ProgressBar progressBar;
@@ -93,8 +93,9 @@ public class TasksFragment extends Fragment {
         notFound = v.findViewById(R.id.not_found);
     }
 
-    public void updateRecyclerView(ArrayList<TasksModel> tasksModelArrayList) {
-        recyclerView.setAdapter(new TasksAdapter(tasksModelArrayList));
+    public void updateRecyclerView(ArrayList<TaskModel> tasksModelArrayList) {
+        NavController navController = Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment);
+        recyclerView.setAdapter(new TasksAdapter(tasksModelArrayList,  navController));
         progressBar.setVisibility(View.INVISIBLE);
         if (tasksModelArrayList.size() > 0) {
             notFound.setVisibility(View.INVISIBLE);
@@ -113,10 +114,11 @@ public class TasksFragment extends Fragment {
                     @Override
                     public void onResponse(@NotNull Call<TasksResponsePojo> call,
                                            @NotNull Response<TasksResponsePojo> response) {
+                        assert response.body() != null;
                         ArrayList<TasksPojo> tasksPojo = response.body().getTasks();
                         tasks.clear();
                         for (TasksPojo t : tasksPojo) {
-                            tasks.add(new TasksModel(t.getId(), t.getTitle(), t.getContent(),
+                            tasks.add(new TaskModel(t.getId(), t.getTitle(), t.getContent(),
                                     t.getContest(), t.getTl(), t.getMl(), t.getSamples()));
                         }
                         updateRecyclerView(tasks);
@@ -138,10 +140,10 @@ public class TasksFragment extends Fragment {
                     @Override
                     public void onResponse(@NotNull Call<TasksResponsePojo> call,
                                            @NotNull Response<TasksResponsePojo> response) {
-                        ArrayList<TasksPojo> tasksPojo = response.body().getTasks();
+                        ArrayList<TasksPojo> tasksPojo = Objects.requireNonNull(response.body()).getTasks();
                         tasks.clear();
                         for (TasksPojo t : tasksPojo) {
-                            tasks.add(new TasksModel(t.getId(), t.getTitle(), t.getContent(),
+                            tasks.add(new TaskModel(t.getId(), t.getTitle(), t.getContent(),
                                     t.getContest(), t.getTl(), t.getMl(), t.getSamples()));
                         }
                         updateRecyclerView(tasks);
