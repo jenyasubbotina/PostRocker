@@ -4,9 +4,14 @@ import com.jenyasubbotina.postrocker.pojo.ContestsPojo;
 import com.jenyasubbotina.postrocker.pojo.ContestsResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.TasksPojo;
 import com.jenyasubbotina.postrocker.pojo.TasksResponsePojo;
+import com.jenyasubbotina.postrocker.pojo.TokenAuthBodyPojo;
+import com.jenyasubbotina.postrocker.pojo.TokenAuthResponsePojo;
+import com.jenyasubbotina.postrocker.pojo.TokenRefreshBodyPojo;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -28,6 +33,11 @@ public interface JSONPlaceHolderApi
     Call<TasksResponsePojo> getTaskByKeyword(@Query("search") String word);
 
     @GET("/api/tasks/{id}")
-    Call<TasksPojo> getSingleTask(@Path("id") long idd);
+    Call<TasksPojo> getSingleTask(@Path("id") long id);
 
+    @POST("/api/token-auth")
+    Call<TokenAuthResponsePojo> getTokenAuth(@Body TokenAuthBodyPojo body);
+
+    @POST("/api/token-refresh")
+    Call<TokenAuthResponsePojo> refreshTokenAuth(@Body TokenRefreshBodyPojo body);
 }

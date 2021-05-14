@@ -15,4 +15,9 @@
     <string name="task"> Задачи </string>
     <string name="input"> Ввод </string>
     <string name="output"> Вывод </string>
+    <string name="send"> Отослать </string>
+    <string name="username"> Имя пользователя </string>
+    <string name="password"> Пароль </string>
+    <string name="login"> Войти </string>
+    <string name="login_first"> Ваша сессия закончена, залогиньтесь </string>
 </resources>

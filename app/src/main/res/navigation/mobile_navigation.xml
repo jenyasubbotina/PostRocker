@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_navigationFragment_to_tasksFragment"
             app:destination="@id/tasksFragment" />
+        <action
+            android:id="@+id/action_navigationFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
@@ -60,4 +63,9 @@
             app:argType="long"
             android:defaultValue="0L" />
     </activity>
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.jenyasubbotina.postrocker.authentification.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 </navigation>

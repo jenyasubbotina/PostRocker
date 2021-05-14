@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import com.jenyasubbotina.postrocker.Constants;
 import com.jenyasubbotina.postrocker.MainActivity;
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.contests.ContestsModel;
@@ -60,7 +61,7 @@ public class SingleContestActivity extends AppCompatActivity implements TaskClic
 
         slidingRootNav = builder.inject();
 
-        id = getIntent().getExtras().getLong(MainActivity.CONTEST_ID);
+        id = getIntent().getExtras().getLong(Constants.CONTEST_ID);
         init();
         tasksMenu.setOnClickListener(v -> slidingRootNav.openMenu());
         getContestInfo(id);

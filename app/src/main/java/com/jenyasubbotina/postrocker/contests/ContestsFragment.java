@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jenyasubbotina.postrocker.Constants;
 import com.jenyasubbotina.postrocker.MainActivity;
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.RecyclerItemClickListener;
@@ -51,7 +52,7 @@ public class ContestsFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 navController = Navigation.findNavController(view);
                 Bundle bundle = new Bundle();
-                bundle.putLong(MainActivity.CONTEST_ID, contests.get(position).getId());
+                bundle.putLong(Constants.CONTEST_ID, contests.get(position).getId());
                 navController.navigate(R.id.singleContestActivity, bundle);
             }
 

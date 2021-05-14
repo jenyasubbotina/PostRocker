@@ -23,13 +23,14 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     NavGraph graph;
     NavController navController;
-    public static final String CONTEST_ID = "CONTEST_ID";
+    SessionManager sm;
 
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sm = new SessionManager(this);
         navigationView = findViewById(R.id.nav_view);
         NavHostFragment navHostFragment =
                 (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.my_nav_host_fragment);
@@ -43,7 +44,11 @@ public class MainActivity extends AppCompatActivity {
                     navController.navigate(R.id.navigationFragment);
                     break;
                 case R.id.personal_nav:
-                    navController.navigate(R.id.cabinetFragment);
+                    if (sm.isAuthenticated()) {
+                        navController.navigate(R.id.cabinetFragment);
+                    } else {
+                        navController.navigate(R.id.loginActivity);
+                    }
                     break;
             }
             return true;
