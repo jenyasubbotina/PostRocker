@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PostRocker">
 
-        <activity android:name=".authentification.LoginActivity"
-            android:theme="@style/Theme.PostRocker.NoActionBar">
+<!--        <activity android:name=".authentification.LoginActivity"-->
+<!--            android:theme="@style/Theme.PostRocker.NoActionBar">-->
 
-        </activity>
+<!--        </activity>-->
 
         <activity
             android:name=".tasks.single_task.SingleTask"

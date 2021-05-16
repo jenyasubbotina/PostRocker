@@ -1,17 +1,16 @@
 package com.jenyasubbotina.postrocker.contests.single_contest;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.jenyasubbotina.postrocker.Constants;
-import com.jenyasubbotina.postrocker.MainActivity;
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.contests.ContestsModel;
 import com.jenyasubbotina.postrocker.network.NetworkService;

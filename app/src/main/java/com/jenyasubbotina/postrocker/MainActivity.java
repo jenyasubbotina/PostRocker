@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         navController = Objects.requireNonNull(navHostFragment).getNavController();
         NavInflater navInflater = navController.getNavInflater();
         graph = navInflater.inflate(R.navigation.mobile_navigation);
-        NavigationUI.setupWithNavController(navigationView, Navigation.findNavController(this, R.id.my_nav_host_fragment));
+        NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.programming_nav:

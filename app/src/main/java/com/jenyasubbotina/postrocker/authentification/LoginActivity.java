@@ -1,12 +1,21 @@
 package com.jenyasubbotina.postrocker.authentification;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.SessionManager;
 import com.jenyasubbotina.postrocker.network.NetworkService;
@@ -24,23 +33,33 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Fragment {
 
     EditText username, password;
     Button login, back;
     SessionManager sm;
+    boolean running = true;
+    NavController navController;
+    View v;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.activity_login, container, false);
         init();
+        runThread();
         login.setOnClickListener(v -> {
             String name, pass;
             name = username.getText().toString().trim();
             pass = password.getText().toString().trim();
+            View view = requireActivity().getCurrentFocus();
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager)requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
             signIn(name, pass);
         });
+        return v;
     }
 
     public void signIn(String username, String password) {
@@ -76,15 +95,16 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(@NotNull Call<TokenAuthResponsePojo> call,
                                            @NotNull Response<TokenAuthResponsePojo> response) {
                         if (response.code() == 200 && response.body() != null) {
+                            Snackbar.make(password, getString(R.string.signed_in), Snackbar.LENGTH_SHORT).show();
                             sm.saveAuthToken(response.body().getAccessToken());
                             sm.saveRefreshToken(response.body().getRefreshToken());
-                            back.performClick();
+                            navController.navigate(R.id.cabinetFragment);
                         } else if (response.code() == 401) {
                             refreshToken(sm.fetchRefreshToken());
                         } else if (response.code() == 400) {
                             sm.saveRefreshToken(null);
                             sm.saveAuthToken(null);
-                            Toast.makeText(LoginActivity.this,
+                            Toast.makeText(requireContext(),
                                     LoginActivity.this.getString(R.string.login_first), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -122,13 +142,31 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void init() {
-        username = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        login = findViewById(R.id.login);
-        sm = new SessionManager(LoginActivity.this);
-        back = findViewById(R.id.btn_back);
+        navController = Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment);
+        username = v.findViewById(R.id.username);
+        password = v.findViewById(R.id.password);
+        login = v.findViewById(R.id.login);
+        sm = new SessionManager(requireContext());
+        back = v.findViewById(R.id.btn_back);
         back.setOnClickListener(v -> {
-            finish();
+            running = false;
+            navController.navigate(R.id.navigationFragment);
         });
+    }
+
+    private void runThread() {
+        new Thread() {
+            public void run() {
+                while (running) {
+                    try {
+                        requireActivity().runOnUiThread(() -> login.setEnabled(username.getText().toString().length() > 0 &&
+                                password.getText().toString().length() > 0));
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
     }
 }

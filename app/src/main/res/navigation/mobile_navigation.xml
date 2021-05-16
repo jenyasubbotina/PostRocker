@@ -63,9 +63,13 @@
             app:argType="long"
             android:defaultValue="0L" />
     </activity>
-    <activity
+    <fragment
         android:id="@+id/loginActivity"
         android:name="com.jenyasubbotina.postrocker.authentification.LoginActivity"
         android:label="activity_login"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/activity_login" >
+        <action
+            android:id="@+id/action_loginActivity_to_cabinetFragment"
+            app:destination="@id/cabinetFragment" />
+    </fragment>
 </navigation>

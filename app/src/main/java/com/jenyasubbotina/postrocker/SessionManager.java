@@ -22,11 +22,21 @@ public class SessionManager {
     }
     private SharedPreferences prefs;
 
+    public Long getUserId() {
+        prefs = context.getSharedPreferences(Constants.MY_SETTINGS, Context.MODE_PRIVATE);
+        return prefs.getLong(Constants.USER_ID, 0L);
+    }
+
     public void saveUserId(Long id) {
         prefs = context.getSharedPreferences(Constants.MY_SETTINGS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(Constants.USER_ID, id);
         editor.apply();
+    }
+
+    public void resetTokens() {
+        saveAuthToken(null);
+        saveRefreshToken(null);
     }
 
     public void saveAuthToken(String token) {
