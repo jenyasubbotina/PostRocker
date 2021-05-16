@@ -1,8 +1,5 @@
 package com.jenyasubbotina.postrocker.contests;
 
-import androidx.annotation.RequiresApi;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -10,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.jenyasubbotina.postrocker.R;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 public class ContestsAdapter extends RecyclerView.Adapter<ContestsAdapter.ViewHolder> {
 

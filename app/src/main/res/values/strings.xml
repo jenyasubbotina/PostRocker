@@ -20,4 +20,9 @@
     <string name="password"> Пароль </string>
     <string name="login"> Войти </string>
     <string name="login_first"> Ваша сессия закончена, залогиньтесь </string>
+
+    <string name="title_tasks"> Tasks </string>
+    <string name="title_contests"> Contests </string>
+    <string name="title_rating"> Rating </string>
+    <string name="title_faq"> F.A.Q </string>
 </resources>

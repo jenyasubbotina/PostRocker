@@ -17,4 +17,5 @@
     <color name="dark_brown"> #43393A </color>
     <color name="medium_gray"> #5C5B5D </color>
     <color name="medium_black"> #080808 </color>
+    <color name="menu_background"> #E8E9F3 </color>
 </resources>

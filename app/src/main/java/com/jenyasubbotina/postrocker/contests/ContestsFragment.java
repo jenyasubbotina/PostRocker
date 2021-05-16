@@ -15,7 +15,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jenyasubbotina.postrocker.Constants;
-import com.jenyasubbotina.postrocker.MainActivity;
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.RecyclerItemClickListener;
 import com.jenyasubbotina.postrocker.network.NetworkService;

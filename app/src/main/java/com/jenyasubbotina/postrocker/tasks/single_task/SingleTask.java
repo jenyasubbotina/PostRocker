@@ -76,7 +76,6 @@ public class SingleTask extends AppCompatActivity {
         taskTimeLimit.setText(getString(R.string.time_limit, task.getTl()));
         taskMemoryLimit.setText(getString(R.string.memory_limit, task.getMl()/1024/1024));
         List<List<String>> samples = task.getSamples();
-        System.out.println(samples);
         for (List<String> l : samples) {
             TableRow tableRow = new TableRow(SingleTask.this);
             ViewGroup.MarginLayoutParams params = new ViewGroup.MarginLayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,

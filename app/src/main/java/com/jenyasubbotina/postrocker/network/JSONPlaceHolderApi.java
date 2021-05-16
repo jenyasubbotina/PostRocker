@@ -1,5 +1,6 @@
 package com.jenyasubbotina.postrocker.network;
 
+import com.jenyasubbotina.postrocker.pojo.AllUsersResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.ContestsPojo;
 import com.jenyasubbotina.postrocker.pojo.ContestsResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.TasksPojo;
@@ -7,6 +8,9 @@ import com.jenyasubbotina.postrocker.pojo.TasksResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.TokenAuthBodyPojo;
 import com.jenyasubbotina.postrocker.pojo.TokenAuthResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.TokenRefreshBodyPojo;
+import com.jenyasubbotina.postrocker.pojo.UserPojo;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -40,4 +44,13 @@ public interface JSONPlaceHolderApi
 
     @POST("/api/token-refresh")
     Call<TokenAuthResponsePojo> refreshTokenAuth(@Body TokenRefreshBodyPojo body);
+
+    @GET("/api/users/{id}")
+    Call<UserPojo> getUserInfo(@Path("id") long id);
+
+    @GET("/api/users")
+    Call<AllUsersResponsePojo> getAllUsers();
+
+    @GET("/api/users/?")
+    Call<AllUsersResponsePojo> getUserByUsername(@Query("search") String username);
 }

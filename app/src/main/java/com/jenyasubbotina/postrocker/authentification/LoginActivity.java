@@ -1,21 +1,24 @@
 package com.jenyasubbotina.postrocker.authentification;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.SessionManager;
 import com.jenyasubbotina.postrocker.network.NetworkService;
+import com.jenyasubbotina.postrocker.pojo.AllUsersResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.TokenAuthBodyPojo;
 import com.jenyasubbotina.postrocker.pojo.TokenAuthResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.TokenRefreshBodyPojo;
+import com.jenyasubbotina.postrocker.pojo.UserPojo;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,7 +27,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     EditText username, password;
-    Button login;
+    Button login, back;
     SessionManager sm;
 
     @Override
@@ -48,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NotNull Call<TokenAuthResponsePojo> call, @NotNull Response<TokenAuthResponsePojo> response) {
                         if (response.code() == 200 && response.body() != null) {
+                            getId(username);
                             String refresh = response.body().getRefreshToken();
                             String access = response.body().getAccessToken();
                             sm.saveRefreshToken(refresh);
@@ -74,8 +78,9 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.code() == 200 && response.body() != null) {
                             sm.saveAuthToken(response.body().getAccessToken());
                             sm.saveRefreshToken(response.body().getRefreshToken());
+                            back.performClick();
                         } else if (response.code() == 401) {
-                            sm.refreshToken(sm.fetchRefreshToken());
+                            refreshToken(sm.fetchRefreshToken());
                         } else if (response.code() == 400) {
                             sm.saveRefreshToken(null);
                             sm.saveAuthToken(null);
@@ -91,10 +96,39 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    public void getId(String name) {
+        NetworkService.getInstance()
+                .getJSONApi()
+                .getUserByUsername(name)
+                .enqueue(new Callback<AllUsersResponsePojo>() {
+                    @Override
+                    public void onResponse(@NotNull Call<AllUsersResponsePojo> call,
+                                           @NotNull Response<AllUsersResponsePojo> response) {
+                        if (response.code() == 200 && response.body() != null) {
+                            ArrayList<UserPojo> match = response.body().getUsers();
+                            for (UserPojo u : match) {
+                                if (u.getUsername().equals(name)) {
+                                    sm.saveUserId(u.getId());
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<AllUsersResponsePojo> call, @NotNull Throwable t) {
+
+                    }
+                });
+    }
+
     public void init() {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         login = findViewById(R.id.login);
         sm = new SessionManager(LoginActivity.this);
+        back = findViewById(R.id.btn_back);
+        back.setOnClickListener(v -> {
+            finish();
+        });
     }
 }
