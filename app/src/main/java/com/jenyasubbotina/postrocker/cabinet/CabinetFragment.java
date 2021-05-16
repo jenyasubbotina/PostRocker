@@ -1,23 +1,17 @@
 package com.jenyasubbotina.postrocker.cabinet;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.facebook.shimmer.Shimmer;
-import com.facebook.shimmer.ShimmerFrameLayout;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.SessionManager;
@@ -27,11 +21,7 @@ import com.jenyasubbotina.postrocker.pojo.UserPojo;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +33,6 @@ public class CabinetFragment extends Fragment {
     Button logout;
     TextView username, lastLogin, dataJoined;
     NavController navController;
-    ShimmerFrameLayout shimmerViewContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,8 +44,6 @@ public class CabinetFragment extends Fragment {
     }
 
     public void init() {
-        shimmerViewContainer = v.findViewById(R.id.shimmer_view_container);
-        shimmerViewContainer.startShimmer();
         navController = Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment);
         username = v.findViewById(R.id.username);
         lastLogin = v.findViewById(R.id.lastlogin);
@@ -99,6 +86,5 @@ public class CabinetFragment extends Fragment {
         String strLastLogin = formatter.format(timeLastLogin);
         dataJoined.setText(getString(R.string.date_joined, strDateJoined));
         lastLogin.setText(getString(R.string.last_login, strLastLogin));
-        shimmerViewContainer.hideShimmer();
     }
 }

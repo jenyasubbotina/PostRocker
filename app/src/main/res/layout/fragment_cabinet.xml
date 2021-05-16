@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:background="@color/white"
     android:padding="@dimen/medium_margin"
-    android:theme="@style/Theme.PostRocker.NoActionBar"
+    android:theme="@style/Theme.PostRocker.NoActionBar.Font"
     tools:context=".cabinet.CabinetFragment">
 
     <LinearLayout

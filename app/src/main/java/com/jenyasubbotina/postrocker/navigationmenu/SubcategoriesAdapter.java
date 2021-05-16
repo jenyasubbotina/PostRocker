@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.jenyasubbotina.postrocker.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -57,7 +58,8 @@ public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdap
                     navigateTo = R.id.tasksFragment;
                     break;
                 default:
-                    throw new IllegalStateException("Unexpected value: " + v.getId());
+                    navigateTo = R.id.navigationFragment;
+                    Snackbar.make(v, "В разработке", Snackbar.LENGTH_SHORT).show();
             }
             navController.navigate(navigateTo);
         });
