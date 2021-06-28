@@ -7,14 +7,14 @@
     android:background="@color/white"
     android:padding="@dimen/medium_margin"
     android:theme="@style/Theme.PostRocker.NoActionBar.Font"
-    tools:context=".cabinet.CabinetFragment">
+    tools:context=".cabinet.CabinetFragment"
+    android:id="@+id/rootView">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-
+        
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/small_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:padding="@dimen/appbar_padding"
                 android:textColor="@color/black"
                 android:textSize="25sp" />
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/small_margin"
-                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginEnd="@dimen/small_margin"
                 android:padding="@dimen/appbar_padding"
                 android:textColor="@color/black"
@@ -56,6 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:layout_marginStart="@dimen/small_margin"
                 android:layout_marginEnd="@dimen/small_margin"
                 android:padding="@dimen/appbar_padding"
@@ -67,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginTop="@dimen/medium_margin"
                 android:background="@android:color/transparent"
                 android:text="@string/logout"
                 android:textAllCaps="false"

@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class LoginActivity extends Fragment {
 
     EditText username, password;
-    Button login, back;
+    Button login, back, registration;
     SessionManager sm;
     boolean running = true;
     NavController navController;
@@ -151,6 +151,10 @@ public class LoginActivity extends Fragment {
         back.setOnClickListener(v -> {
             running = false;
             navController.navigate(R.id.navigationFragment);
+        });
+        registration = v.findViewById(R.id.registration);
+        registration.setOnClickListener(v -> {
+            navController.navigate(R.id.registrationActivity);
         });
     }
 

@@ -22,8 +22,7 @@ public class SubcategoriesAdapter extends RecyclerView.Adapter<SubcategoriesAdap
     public final Context context;
     private final NavController navController;
     int[] names = {R.string.task, R.string.contests, R.string.rating, R.string.faq};
-    int[] images = {R.drawable.ic_tasks, R.drawable.ic_computer, R.drawable.ic_rating,
-            R.drawable.ic_faq, R.drawable.ic_rating, R.drawable.ic_rating};
+    int[] images = {R.drawable.ic_tasks, R.drawable.ic_computer, R.drawable.ic_rating, R.drawable.ic_faq};
 
     private final int CONTEST_STRING = R.string.contests;
     private final int TASKS_STRING = R.string.task;

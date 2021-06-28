@@ -18,4 +18,9 @@
     <color name="medium_gray"> #5C5B5D </color>
     <color name="medium_black"> #080808 </color>
     <color name="menu_background"> #E8E9F3 </color>
+
+    <color name="skeleton_color_font_dark"> #333333 </color>
+    <color name="skeleton_color_font_light"> #666666 </color>
+    <color name="skeleton_color_line"> #dfdfdf </color>
+    <color name="skeleton_image_color"> #55efefef </color>
 </resources>

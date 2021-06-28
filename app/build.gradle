@@ -53,4 +53,10 @@ dependencies {
 
     implementation 'com.yarolegovich:sliding-root-nav:1.1.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.ethanhua:skeleton:1.1.2'
+    implementation 'io.supercharge:shimmerlayout:2.1.0'
+
+    implementation platform('com.google.firebase:firebase-bom:28.1.0')
+    implementation 'com.google.firebase:firebase-dynamic-links:19.0.0'
 }

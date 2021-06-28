@@ -25,6 +25,11 @@
     <string name="logout"> Выйти </string>
     <string name="logged_out"> Вы вышли из кабинета </string>
     <string name="signed_in"> Вы успешно авторизовались </string>
+    <string name="signed_up"> Вы успешно зарегистрировались </string>
     <string name="last_login"> Последнее посещение: %1$s </string>
     <string name="date_joined"> Зарегистрирован: %1$s </string>
+    <string name="no_account"> Нет аккаунта? </string>
+    <string name="registration"> Регистрация </string>
+    <string name="register"> Зарегистрироваться </string>
+    <string name="email"> Почта </string>
 </resources>

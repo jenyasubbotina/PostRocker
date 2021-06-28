@@ -71,5 +71,12 @@
         <action
             android:id="@+id/action_loginActivity_to_cabinetFragment"
             app:destination="@id/cabinetFragment" />
+        <action
+            android:id="@+id/action_loginActivity_to_registrationActivity"
+            app:destination="@id/registrationActivity" />
     </fragment>
+    <fragment
+        android:id="@+id/registrationActivity"
+        android:name="com.jenyasubbotina.postrocker.authentification.RegistrationActivity"
+        android:label="RegistrationActivity" />
 </navigation>

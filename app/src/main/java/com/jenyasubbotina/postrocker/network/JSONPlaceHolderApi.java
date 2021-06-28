@@ -3,6 +3,8 @@ package com.jenyasubbotina.postrocker.network;
 import com.jenyasubbotina.postrocker.pojo.AllUsersResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.ContestsPojo;
 import com.jenyasubbotina.postrocker.pojo.ContestsResponsePojo;
+import com.jenyasubbotina.postrocker.pojo.CreateUserBodyPojo;
+import com.jenyasubbotina.postrocker.pojo.CreateUserResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.TasksPojo;
 import com.jenyasubbotina.postrocker.pojo.TasksResponsePojo;
 import com.jenyasubbotina.postrocker.pojo.TokenAuthBodyPojo;
@@ -53,4 +55,7 @@ public interface JSONPlaceHolderApi
 
     @GET("/api/users/?")
     Call<AllUsersResponsePojo> getUserByUsername(@Query("search") String username);
+
+    @POST("/api/users/")
+    Call<CreateUserResponsePojo> createUser(@Body CreateUserBodyPojo body);
 }

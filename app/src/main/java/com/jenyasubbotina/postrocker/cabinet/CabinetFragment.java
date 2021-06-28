@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 import com.google.android.material.snackbar.Snackbar;
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.SessionManager;
@@ -33,6 +36,8 @@ public class CabinetFragment extends Fragment {
     Button logout;
     TextView username, lastLogin, dataJoined;
     NavController navController;
+    NestedScrollView rootView;
+    SkeletonScreen skeleton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +49,7 @@ public class CabinetFragment extends Fragment {
     }
 
     public void init() {
+        rootView = v.findViewById(R.id.rootView);
         navController = Navigation.findNavController(requireActivity(), R.id.my_nav_host_fragment);
         username = v.findViewById(R.id.username);
         lastLogin = v.findViewById(R.id.lastlogin);
@@ -55,6 +61,11 @@ public class CabinetFragment extends Fragment {
             Snackbar.make(v, getString(R.string.logged_out), Snackbar.LENGTH_SHORT).show();
             navController.navigate(R.id.navigationFragment);
         });
+        skeleton = Skeleton.bind(rootView)
+                .load(R.layout.skeleton_cabinet)
+                .shimmer(true)
+                .duration(2000)
+                .show();
     }
 
     public void getInfo() {
@@ -86,5 +97,6 @@ public class CabinetFragment extends Fragment {
         String strLastLogin = formatter.format(timeLastLogin);
         dataJoined.setText(getString(R.string.date_joined, strDateJoined));
         lastLogin.setText(getString(R.string.last_login, strLastLogin));
+        skeleton.hide();
     }
 }

@@ -1,15 +1,23 @@
 package com.jenyasubbotina.postrocker.contests.single_contest;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.jenyasubbotina.postrocker.Constants;
 import com.jenyasubbotina.postrocker.R;
 import com.jenyasubbotina.postrocker.contests.ContestsModel;
@@ -29,8 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SingleContestActivity extends AppCompatActivity implements TaskClick
-{
+public class SingleContestActivity extends AppCompatActivity implements TaskClick {
     ArrayList<TaskModel> tasks = new ArrayList<>();
     RecyclerView rvTasks;
     TextView contestName, contestDescription;
@@ -66,6 +73,56 @@ public class SingleContestActivity extends AppCompatActivity implements TaskClic
         getContestInfo(id);
         rvTasks.setLayoutManager(new LinearLayoutManager(SingleContestActivity.this));
         getTasksOfContest(id);
+        System.out.println(createDynamicUri(Uri.parse(id.toString())));
+    }
+
+    private Uri createDynamicUri(Uri uri) {
+        DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(uri)
+                .setDomainUriPrefix("postrocker.page.link")
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+//                .setIosParameters(DynamicLink.IosParameters.Builder("ibi").build())
+                .buildDynamicLink();
+        return dynamicLink.getUri();
+    }
+
+    private Uri createShareUri(Long contestId) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https") // "http"
+                .authority("postrocker.page.link") // "365salads.xyz"
+                .appendPath("contest") // "salads"
+                .appendQueryParameter(Constants.CONTEST_ID, String.valueOf(contestId));
+        return builder.build();
+    }
+
+    private void handleDeepLink() {
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        Uri deepLink;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                            if (deepLink != null) {
+                                String path = deepLink.getLastPathSegment();
+                                handleDynamicLinkPath(path);
+                            }
+                        }
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        System.out.println(e.toString());
+                    }
+                });
+    }
+
+    private void handleDynamicLinkPath(String path) {
+        Intent intent = new Intent(this, SingleContestActivity.class);
+        intent.putExtra(Constants.CONTEST_ID, path);
+        startActivity(intent);
     }
 
     public void init() {
@@ -107,7 +164,7 @@ public class SingleContestActivity extends AppCompatActivity implements TaskClic
         taskName.setText(task.getTitle());
         taskDescription.setText(task.getContent());
         taskTimeLimit.setText(getString(R.string.time_limit, task.getTl()));
-        taskMemoryLimit.setText(getString(R.string.memory_limit, task.getMl()/1024/1024));
+        taskMemoryLimit.setText(getString(R.string.memory_limit, task.getMl() / 1024 / 1024));
     }
 
     public void getTasksOfContest(Long id) {

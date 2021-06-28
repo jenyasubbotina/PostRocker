@@ -12,25 +12,39 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PostRocker">
-
-<!--        <activity android:name=".authentification.LoginActivity"-->
-<!--            android:theme="@style/Theme.PostRocker.NoActionBar">-->
-
-<!--        </activity>-->
-
+        <!-- <activity android:name=".authentification.LoginActivity" -->
+        <!-- android:theme="@style/Theme.PostRocker.NoActionBar"> -->
+        <!-- </activity> -->
         <activity
             android:name=".tasks.single_task.SingleTask"
             android:theme="@style/Theme.PostRocker.NoActionBar" />
 
-        <activity android:name=".contests.single_contest.SingleContestActivity" />
-        <activity
+        <activity android:name=".contests.single_contest.SingleContestActivity" >
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="postrocker.page.link"
+                    android:scheme="https"/>
+            </intent-filter>
 
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.PostRocker.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="postrocker.page.link"
+                    android:scheme="https"/>
             </intent-filter>
         </activity>
 
