@@ -55,16 +55,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent()).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+        FirebaseDynamicLinks.getInstance().getDynamicLink(getIntent()).addOnFailureListener(e -> {
 
-            }
-        }).addOnSuccessListener(new OnSuccessListener<PendingDynamicLinkData>() {
-            @Override
-            public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
-                pendingDynamicLinkData.getLink();
-            }
-        });
+        }).addOnSuccessListener(PendingDynamicLinkData::getLink);
     }
 }
