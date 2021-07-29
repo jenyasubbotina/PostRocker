@@ -58,4 +58,7 @@ public interface JSONPlaceHolderApi
 
     @POST("/api/users/")
     Call<CreateUserResponsePojo> createUser(@Body CreateUserBodyPojo body);
+
+    @GET("/api/rating/")
+    Call<Response> getOverallRating():
 }
